@@ -1,0 +1,9 @@
+name: mercury
+version: 0.1.0
+
+authors:
+  - Stephanie Wilde-Hobbs <steph@rx14.co.uk>
+
+crystal: 0.34.0
+
+license: MIT
