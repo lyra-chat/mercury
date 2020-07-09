@@ -1,9 +1,8 @@
 require "../spec_helper"
 
 private def new_parser(str : String)
-  io = IO::Memory.new
-  io << str
-  Lyra::Parser.new(io.rewind)
+  io = IO::Memory.new(str)
+  Lyra::Parser.new(io)
 end
 
 describe Lyra::Parser do
