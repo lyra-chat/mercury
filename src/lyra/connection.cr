@@ -16,4 +16,11 @@ class Lyra::Connection
 
     @io << ':' << command.args.last << '\n'
   end
+
+  def read : Command?
+    name = parser.read_name
+    return unless name
+
+    Command.commands[name].new(parser)
+  end
 end

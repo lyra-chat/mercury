@@ -37,3 +37,5 @@ class Lyra::Command::Hello < Lyra::Command
     {protocol_version, extensions.join(','), metadata}
   end
 end
+
+Lyra::Command.register("HELLO", Lyra::Command::Hello)
