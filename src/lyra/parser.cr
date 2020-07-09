@@ -53,7 +53,7 @@ class Lyra::Parser
 
   # Reads an argument of the currently parsing command, yielding the argument
   # data in an IO passed to the provided block.
-  def read_arg(& : IO -> _)
+  def read_arg(& : IO -> T) : T forall T
     error "can't read command-arg when positioned at command-name" unless @state.arg_start?
 
     # TODO: optimize
@@ -64,9 +64,15 @@ class Lyra::Parser
     raise IO::EOFError.new unless byte
     @command_size += 1
 
-    if byte == ':'.ord
+    case byte
+    when ':'
       last_arg = true
       target_byte = '\n'.ord.to_u8
+    when ' '
+      # Zero-length argument
+
+      error "command size was greater than #{COMMAND_SIZE_MAX} bytes" if @command_size > COMMAND_SIZE_MAX
+      return yield io.rewind
     else
       io.write_byte(byte)
 
